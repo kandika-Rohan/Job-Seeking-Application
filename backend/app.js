@@ -14,13 +14,21 @@ const app = express();
 
 config({ path: "./config/config.env" });
 
-app.use(
-  cors({
-    origin: ["https://job-seeking-application-api.vercel.app/"],
-    method: ["GET", "POST", "DELETE", "PUT"],
-    credentials: true,
-  })
-);
+
+app.use(cors({
+  origin: ["https://deploy-mern-1whq.vercel.app"],
+  methods: ["POST", "GET"],
+  credentials: true
+}));
+
+
+// app.use(
+//   cors({
+//     origin: ["https://job-seeking-application-api.vercel.app/"],
+//     method: ["GET", "POST", "DELETE", "PUT"],
+//     credentials: true,
+//   })
+// );
 
 app.use(cookieParser());
 app.use(express.json());
