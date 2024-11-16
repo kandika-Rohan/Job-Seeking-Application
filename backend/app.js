@@ -16,7 +16,7 @@ config({ path: "./config/config.env" });
 
 
 app.use(cors({
-  origin: ["https://deploy-mern-1whq.vercel.app"],
+  origin: ["https://job-seeking-application-sage.vercel.app"],
   methods: ["POST", "GET"],
   credentials: true
 }));
