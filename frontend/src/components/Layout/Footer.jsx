@@ -16,7 +16,7 @@ const Footer = () => {
         <Link to={"#"} target="_blank">
           <FaYoutube />
         </Link>
-        <Link to={"www.linkedin.com/in/kandika-rohan-1858081bb"} target="_blank">
+        <Link to={"https://www.linkedin.com/in/kandika-rohan-1858081bb"} target="_blank">
           <FaLinkedin />
         </Link>
         <Link to={"https://www.instagram.com/rohan_kandika/"} target="_blank">

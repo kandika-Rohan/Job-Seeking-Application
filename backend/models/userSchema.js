@@ -13,7 +13,6 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, "Please enter your Email!"],
-    validate: [validator.isEmail, "Please provide a valid Email!"],
   },
   phone: {
     type: Number,
@@ -21,10 +20,6 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, "Please provide a Password!"],
-    minLength: [8, "Password must contain at least 8 characters!"],
-    maxLength: [32, "Password cannot exceed 32 characters!"],
-    select: false,
   },
   role: {
     type: String,
@@ -54,8 +49,9 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
 //GENERATING A JWT TOKEN WHEN A USER REGISTERS OR LOGINS, IT DEPENDS ON OUR CODE THAT WHEN DO WE NEED TO GENERATE THE JWT TOKEN WHEN THE USER LOGIN OR REGISTER OR FOR BOTH. 
 userSchema.methods.getJWTToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
-    expiresIn: process.env.JWT_EXPIRE,
+    expiresIn: String(process.env.JWT_EXPIRE || "7d"), // Ensure it's a string
   });
 };
+
 
 export const User = mongoose.model("User", userSchema);
