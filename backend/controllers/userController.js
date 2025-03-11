@@ -24,24 +24,39 @@ export const register = catchAsyncErrors(async (req, res, next) => {
 
 export const login = catchAsyncErrors(async (req, res, next) => {
   const { email, password, role } = req.body;
+
+  console.log("Received login request with:", email, password, role);
+
   if (!email || !password || !role) {
-    return next(new ErrorHandler("Please provide email ,password and role."));
+    console.log("Missing email, password, or role");
+    return next(new ErrorHandler("Please provide email, password, and role."));
   }
+
   const user = await User.findOne({ email }).select("+password");
+  console.log("User found in DB:", user);
+
   if (!user) {
+    console.log("User not found with email:", email);
     return next(new ErrorHandler("Invalid Email Or Password.", 400));
   }
+
   const isPasswordMatched = await user.comparePassword(password);
+  console.log("Password match status:", isPasswordMatched);
+
   if (!isPasswordMatched) {
     return next(new ErrorHandler("Invalid Email Or Password.", 400));
   }
+
   if (user.role !== role) {
+    console.log(`User found, but role mismatch. Expected: ${role}, Found: ${user.role}`);
     return next(
-      new ErrorHandler(`User with provided email and ${role} not found!`, 404)
+      new ErrorHandler(`User with provided email and role '${role}' not found!`, 404)
     );
   }
+
   sendToken(user, 201, res, "User Logged In!");
 });
+
 
 export const logout = catchAsyncErrors(async (req, res, next) => {
   res
