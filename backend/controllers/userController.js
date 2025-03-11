@@ -25,7 +25,7 @@ export const register = catchAsyncErrors(async (req, res, next) => {
 export const login = catchAsyncErrors(async (req, res, next) => {
   const { email, password, role } = req.body;
 
-  console.log("Received login request with:", email, password, role);
+  
 
   if (!email || !password || !role) {
     console.log("Missing email, password, or role");
