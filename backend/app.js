@@ -12,12 +12,13 @@ import fileUpload from "express-fileupload";
 
 const app = express();
 
+dotenv.config();
 
 config({ path: "./config/.env" });
 
 app.use(
   cors({
-    origin: "*",
+    origin: process.env.FRONTEND_URL,
     method: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
   })
